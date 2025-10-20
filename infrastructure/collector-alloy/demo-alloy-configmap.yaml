@@ -1,4 +1,6 @@
-"otelcol.receiver.otlp \"default\" {\n  // https://grafana.com/docs/alloy/latest/reference/components/otelcol.receiver.otlp/\n
+apiVersion: v1
+data:
+  config.alloy: "otelcol.receiver.otlp \"default\" {\n  // https://grafana.com/docs/alloy/latest/reference/components/otelcol.receiver.otlp/\n
     \ // configures the default grpc endpoint \"0.0.0.0:4317\"\n  grpc { }\n  // configures
     the default http/protobuf endpoint \"0.0.0.0:4318\"\n  http { }\n  output {\n\tmetrics
     = [otelcol.processor.k8sattributes.default.input]\n\tlogs    = [otelcol.processor.k8sattributes.default.input]\n\ttraces
@@ -52,11 +54,12 @@
     \   = [otelcol.processor.transform.add_labels_for_KG.input]\n    traces  = [otelcol.processor.transform.add_labels_for_KG.input]\n
     \ }\n}\n\n\n// this is based on conversations about using KG with App O11y\notelcol.processor.transform
     \"add_labels_for_KG\" {\n  error_mode = \"ignore\"\n  trace_statements {\n    context
-    \   = \"resource\"\n    statements = [\n \"set(attributes[\\\"k8s.cluster.name\\\"], \\\"zzz-stadler-tf-take-home\\\")\",\n
-    \     \"set(attributes[\\\"cloud.provider\\\"], \\\"gcp\\\")\",\n      \"set(attributes[\\\"cloud.account.id\\\"],
-    \\\"solutions-engineering-248511\\\")\",\n      \"set(attributes[\\\"cloud.availability.zone\\\"],
-    \\\"us-central1-a\\\")\",\n      \"set(attributes[\\\"k8s.pod.name\\\"], \\\"12345\\\")\",\n
-    \   ]\n  }\n  output {\n    metrics = [otelcol.processor.transform.add_resource_attributes_as_metric_attributes.input]\n
+    \   = \"resource\"\n    statements = [\n      \"set(attributes[\\\"k8s.cluster.name\\\"],
+    \\\"zzz-stadler-tf-take-home\\\")\",\n      \"set(attributes[\\\"cloud.provider\\\"],
+    \\\"gcp\\\")\",\n      \"set(attributes[\\\"cloud.account.id\\\"], \\\"solutions-engineering-248511\\\")\",\n
+    \     \"set(attributes[\\\"cloud.availability.zone\\\"], \\\"us-central1-a\\\")\",\n
+    \     \"set(attributes[\\\"k8s.pod.name\\\"], \\\"12345\\\")\",\n    ]\n  }\n
+    \ output {\n    metrics = [otelcol.processor.transform.add_resource_attributes_as_metric_attributes.input]\n
     \   logs    = [otelcol.processor.batch.default.input]\n    traces  = [\n      otelcol.processor.batch.default.input,\n
     \     otelcol.connector.host_info.default.input,\n    ]\n  }\n}\n\n\n\n\notelcol.connector.host_info
     \"default\" {\n  // https://grafana.com/docs/alloy/latest/reference/components/otelcol.connector.host_info/\n
@@ -72,12 +75,16 @@
     \   = [otelcol.exporter.otlphttp.grafana_cloud.input]\n    traces  = [otelcol.exporter.otlphttp.grafana_cloud.input]\n
     \ }\n}\n\n// (The next 2 components are not part of the starter AppOlly production
     config in Grafana's docs.)\nremote.kubernetes.configmap \"grafanacloud_otlphttp_configmap\"
-    {\n  namespace = \"collector\"\n  name = \"grafanacloud-otlphttp-configmap\"\n}\nremote.kubernetes.secret
-    \"grafanacloud_otlphttp_secret\" {\n  namespace = \"collector\"\n  name = \"grafanacloud-otlphttp-secret\"\n}\n\n//
-    (The next 2 components are modified from the starter AppOlly production config
-    in Grafana's docs.)\notelcol.exporter.otlphttp \"grafana_cloud\" {\n  // https://grafana.com/docs/alloy/latest/reference/components/otelcol.exporter.otlphttp/\n
+    {\n  name = \"grafanacloud-otlphttp-configmap\"\n}\nremote.kubernetes.secret \"grafanacloud_otlphttp_secret\"
+    {\n  name = \"grafanacloud-otlphttp-secret\"\n}\n\n// (The next 2 components are
+    modified from the starter AppOlly production config in Grafana's docs.)\notelcol.exporter.otlphttp
+    \"grafana_cloud\" {\n  // https://grafana.com/docs/alloy/latest/reference/components/otelcol.exporter.otlphttp/\n
     \ client {\n    endpoint = remote.kubernetes.configmap.grafanacloud_otlphttp_configmap.data[\"url\"]\n
     \   auth     = otelcol.auth.basic.grafana_cloud.handler\n  }\n}\notelcol.auth.basic
     \"grafana_cloud\" {\n  // https://grafana.com/docs/alloy/latest/reference/components/otelcol.auth.basic/\n
     \ username = convert.nonsensitive(remote.kubernetes.configmap.grafanacloud_otlphttp_configmap.data[\"username\"])\n
     \ password = remote.kubernetes.secret.grafanacloud_otlphttp_secret.data[\"password\"]\n}\n\n"
+kind: ConfigMap
+metadata:
+  name: alloy-config
+  namespace: collector
