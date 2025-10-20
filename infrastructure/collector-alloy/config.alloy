@@ -181,9 +181,11 @@ otelcol.processor.batch "default" {
 
 // (The next 2 components are not part of the starter AppOlly production config in Grafana's docs.)
 remote.kubernetes.configmap "grafanacloud_otlphttp_configmap" {
+  namespace = "collector"
   name = "grafanacloud-otlphttp-configmap"
 }
 remote.kubernetes.secret "grafanacloud_otlphttp_secret" {
+  namespace = "collector"
   name = "grafanacloud-otlphttp-secret"
 }
 

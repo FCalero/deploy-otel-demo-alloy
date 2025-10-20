@@ -75,10 +75,10 @@ data:
     \   = [otelcol.exporter.otlphttp.grafana_cloud.input]\n    traces  = [otelcol.exporter.otlphttp.grafana_cloud.input]\n
     \ }\n}\n\n// (The next 2 components are not part of the starter AppOlly production
     config in Grafana's docs.)\nremote.kubernetes.configmap \"grafanacloud_otlphttp_configmap\"
-    {\n  name = \"grafanacloud-otlphttp-configmap\"\n}\nremote.kubernetes.secret \"grafanacloud_otlphttp_secret\"
-    {\n  name = \"grafanacloud-otlphttp-secret\"\n}\n\n// (The next 2 components are
-    modified from the starter AppOlly production config in Grafana's docs.)\notelcol.exporter.otlphttp
-    \"grafana_cloud\" {\n  // https://grafana.com/docs/alloy/latest/reference/components/otelcol.exporter.otlphttp/\n
+    {\n  namespace = \"collector\"\n  name = \"grafanacloud-otlphttp-configmap\"\n}\nremote.kubernetes.secret
+    \"grafanacloud_otlphttp_secret\" {\n  namespace = \"collector\"\n  name = \"grafanacloud-otlphttp-secret\"\n}\n\n//
+    (The next 2 components are modified from the starter AppOlly production config
+    in Grafana's docs.)\notelcol.exporter.otlphttp \"grafana_cloud\" {\n  // https://grafana.com/docs/alloy/latest/reference/components/otelcol.exporter.otlphttp/\n
     \ client {\n    endpoint = remote.kubernetes.configmap.grafanacloud_otlphttp_configmap.data[\"url\"]\n
     \   auth     = otelcol.auth.basic.grafana_cloud.handler\n  }\n}\notelcol.auth.basic
     \"grafana_cloud\" {\n  // https://grafana.com/docs/alloy/latest/reference/components/otelcol.auth.basic/\n
