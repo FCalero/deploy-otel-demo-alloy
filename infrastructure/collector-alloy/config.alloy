@@ -128,6 +128,8 @@ otelcol.processor.transform "add_labels_for_KG" {
     context    = "resource"
     statements = [
       "delete_key(attributes, \"job\")",
+      "delete_key(attributes, \"service.name\")",
+      "delete_key(attributes, \"service.namespace\")",
       "set(attributes[\"k8s.cluster.name\"], \"zzz-stadler-tf-take-home\")",
       "set(attributes[\"cloud.provider\"], \"gcp\")",
       "set(attributes[\"cloud.account.id\"], \"solutions-engineering-248511\")",
@@ -139,6 +141,8 @@ otelcol.processor.transform "add_labels_for_KG" {
     context    = "resource"
     statements = [
         "delete_key(attributes, \"job\")",
+        "delete_key(attributes, \"service.name\")",
+        "delete_key(attributes, \"service.namespace\")",
     ]
   }
   output {
@@ -150,9 +154,6 @@ otelcol.processor.transform "add_labels_for_KG" {
     ]
   }
 }
-
-
-
 
 otelcol.connector.host_info "default" {
   // https://grafana.com/docs/alloy/latest/reference/components/otelcol.connector.host_info/

@@ -57,14 +57,17 @@ data:
     \ }\n}\n\n\n// this is based on conversations about using KG with App O11y\notelcol.processor.transform
     \"add_labels_for_KG\" {\n  error_mode = \"ignore\"\n  trace_statements {\n    context
     \   = \"resource\"\n    statements = [\n      \"delete_key(attributes, \\\"job\\\")\",\n
-    \     \"set(attributes[\\\"k8s.cluster.name\\\"], \\\"zzz-stadler-tf-take-home\\\")\",\n
-    \     \"set(attributes[\\\"cloud.provider\\\"], \\\"gcp\\\")\",\n      \"set(attributes[\\\"cloud.account.id\\\"],
-    \\\"solutions-engineering-248511\\\")\",\n      \"set(attributes[\\\"cloud.availability.zone\\\"],
-    \\\"us-central1-a\\\")\",\n    ]\n  }\n\n  metric_statements {\n    context    =
-    \"resource\"\n    statements = [\n        \"delete_key(attributes, \\\"job\\\")\",\n
+    \     \"delete_key(attributes, \\\"service.name\\\")\",\n      \"delete_key(attributes,
+    \\\"service.namespace\\\")\",\n      \"set(attributes[\\\"k8s.cluster.name\\\"],
+    \\\"zzz-stadler-tf-take-home\\\")\",\n      \"set(attributes[\\\"cloud.provider\\\"],
+    \\\"gcp\\\")\",\n      \"set(attributes[\\\"cloud.account.id\\\"], \\\"solutions-engineering-248511\\\")\",\n
+    \     \"set(attributes[\\\"cloud.availability.zone\\\"], \\\"us-central1-a\\\")\",\n
+    \   ]\n  }\n\n  metric_statements {\n    context    = \"resource\"\n    statements
+    = [\n        \"delete_key(attributes, \\\"job\\\")\",\n        \"delete_key(attributes,
+    \\\"service.name\\\")\",\n        \"delete_key(attributes, \\\"service.namespace\\\")\",\n
     \   ]\n  }\n  output {\n    metrics = [otelcol.processor.transform.add_resource_attributes_as_metric_attributes.input]\n
     \   logs    = [otelcol.processor.batch.default.input]\n    traces  = [\n      otelcol.processor.batch.default.input,\n
-    \     otelcol.connector.host_info.default.input,\n    ]\n  }\n}\n\n\n\n\notelcol.connector.host_info
+    \     otelcol.connector.host_info.default.input,\n    ]\n  }\n}\n\notelcol.connector.host_info
     \"default\" {\n  // https://grafana.com/docs/alloy/latest/reference/components/otelcol.connector.host_info/\n
     \ host_identifiers = [\"host.name\"]\n\n  output {\n    metrics = [otelcol.processor.batch.default.input]\n
     \ }\n}\n\notelcol.processor.transform \"add_resource_attributes_as_metric_attributes\"
