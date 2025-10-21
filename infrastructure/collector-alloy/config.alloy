@@ -127,9 +127,9 @@ otelcol.processor.transform "add_labels_for_KG" {
   trace_statements {
     context    = "resource"
     statements = [
-      "delete_key(attributes, \"job\")",
       "delete_key(attributes, \"service.name\")",
       "delete_key(attributes, \"service.namespace\")",
+      "set(attributes[\"job\"], \"job/\")",
       "set(attributes[\"k8s.namespace.name\"], \"collector\")",
       "set(attributes[\"k8s.cluster.name\"], \"zzz-stadler-tf-take-home\")",
       "set(attributes[\"k8s.pod.name\"], \"12345\")",
@@ -142,9 +142,9 @@ otelcol.processor.transform "add_labels_for_KG" {
   metric_statements {
     context    = "resource"
     statements = [
-        "delete_key(attributes, \"job\")",
         "delete_key(attributes, \"service.name\")",
         "delete_key(attributes, \"service.namespace\")",
+        "set(attributes[\"job\"], \"job/\")",
     ]
   }
   output {
