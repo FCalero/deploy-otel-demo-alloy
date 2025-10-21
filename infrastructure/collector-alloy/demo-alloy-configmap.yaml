@@ -58,8 +58,9 @@ data:
     \"add_labels_for_KG\" {\n  error_mode = \"ignore\"\n  trace_statements {\n    context
     \   = \"resource\"\n    statements = [\n      \"delete_key(attributes, \\\"job\\\")\",\n
     \     \"delete_key(attributes, \\\"service.name\\\")\",\n      \"delete_key(attributes,
-    \\\"service.namespace\\\")\",\n      \"set(attributes[\\\"k8s.cluster.name\\\"],
-    \\\"zzz-stadler-tf-take-home\\\")\",\n      \"set(attributes[\\\"cloud.provider\\\"],
+    \\\"service.namespace\\\")\",\n      \"set(attributes[\\\"k8s.namespace.name\\\"],
+    \\\"collector\\\")\",\n      \"set(attributes[\\\"k8s.cluster.name\\\"], \\\"zzz-stadler-tf-take-home\\\")\",\n
+    \     \"set(attributes[\\\"k8s.pod.name\\\"], \\\"12345\\\")\",\n      \"set(attributes[\\\"cloud.provider\\\"],
     \\\"gcp\\\")\",\n      \"set(attributes[\\\"cloud.account.id\\\"], \\\"solutions-engineering-248511\\\")\",\n
     \     \"set(attributes[\\\"cloud.availability.zone\\\"], \\\"us-central1-a\\\")\",\n
     \   ]\n  }\n\n  metric_statements {\n    context    = \"resource\"\n    statements
