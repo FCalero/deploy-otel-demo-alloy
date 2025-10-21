@@ -8,10 +8,10 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: fcalero/traces-no-job-label
   secretRef:
     name: flux-system
-  url: ssh://git@github.com/danstadler-pdx/deploy-otel-demo-alloy
+  url: ssh://git@github.com/FCalero/deploy-otel-demo-alloy
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
