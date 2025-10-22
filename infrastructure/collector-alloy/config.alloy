@@ -44,7 +44,6 @@ otelcol.processor.transform "drop_unneeded_resource_attributes" {
   trace_statements {
     context    = "resource"
     statements = [
-      "delete_key(attributes, \"job\")",
       "delete_key(attributes, \"k8s.pod.start_time\")",
       "delete_key(attributes, \"os.description\")",
       "delete_key(attributes, \"os.type\")",
@@ -60,7 +59,6 @@ otelcol.processor.transform "drop_unneeded_resource_attributes" {
   metric_statements {
     context    = "resource"
     statements = [
-      "delete_key(attributes, \"job\")",
       "delete_key(attributes, \"k8s.pod.start_time\")",
       "delete_key(attributes, \"os.description\")",
       "delete_key(attributes, \"os.type\")",
@@ -76,7 +74,6 @@ otelcol.processor.transform "drop_unneeded_resource_attributes" {
   log_statements {
     context    = "resource"
     statements = [
-      "delete_key(attributes, \"job\")",
       "delete_key(attributes, \"k8s.pod.start_time\")",
       "delete_key(attributes, \"os.description\")",
       "delete_key(attributes, \"os.type\")",
