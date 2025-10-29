@@ -124,7 +124,7 @@ otelcol.processor.transform "add_labels_for_KG" {
   trace_statements {
     context    = "resource"
     statements = [
-      "set(attributes[\"k8s.namespace.name\"], \"collector\")",
+      "set(attributes[\"k8s.pod.name\"], \"a-pod\")",
       "set(attributes[\"k8s.cluster.name\"], \"zzz-stadler-tf-take-home\")",
       "set(attributes[\"cloud.provider\"], \"gcp\")",
       "set(attributes[\"cloud.account.id\"], \"solutions-engineering-248511\")",
@@ -135,7 +135,7 @@ otelcol.processor.transform "add_labels_for_KG" {
   metric_statements {
     context    = "resource"
     statements = [
-        "set(attributes[\"k8s.namespace.name\"], \"collector\")",
+        "set(attributes[\"k8s.pod.name\"], \"a-pod\")",
         "set(attributes[\"k8s.cluster.name\"], \"zzz-stadler-tf-take-home\")",
     ]
   }
