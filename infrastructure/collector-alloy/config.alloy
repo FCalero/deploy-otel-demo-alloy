@@ -135,7 +135,6 @@ otelcol.processor.transform "add_labels_for_KG" {
   metric_statements {
     context    = "resource"
     statements = [
-        "set(attributes[\"k8s.pod.name\"], \"a-pod\")",
         "set(attributes[\"k8s.cluster.name\"], \"zzz-stadler-tf-take-home\")",
     ]
   }
